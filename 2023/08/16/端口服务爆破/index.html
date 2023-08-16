@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-cn" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>端口服务爆破 | Yang</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light') document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark') document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><nav><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><div id="shadow-header"></div><article><div id="post-bg"><div id="post-title"><h1>端口服务爆破</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2023-08-16T06:01:09.000Z" id="date"> 2023-08-16</time></div></span><br><span>最后更新时间: <div class="control"><time datetime="2023-08-16T06:51:44.385Z" id="updated"> 2023-08-16</time></div></span><br><span>文章总字数: <div class="control">671</div></span><br><span>预计阅读时间: <div class="control">2 分钟</div></span></div></div><hr><div id="post-content"><h2 id="常见端口服务"><a href="#常见端口服务" class="headerlink" title="常见端口服务"></a>常见端口服务</h2><table>
+<thead>
+<tr>
+<th align="center">端口</th>
+<th align="center">服务</th>
+<th align="center">入侵方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">21</td>
+<td align="center">ftp&#x2F;tftp&#x2F;vsftpd文件传输协议</td>
+<td align="center">爆破&#x2F;嗅探&#x2F;溢出&#x2F;后门</td>
+</tr>
+<tr>
+<td align="center">22</td>
+<td align="center">ssh远程连接</td>
+<td align="center">爆破&#x2F;openssh漏洞</td>
+</tr>
+<tr>
+<td align="center">23</td>
+<td align="center">Telnet远程连接</td>
+<td align="center">爆破&#x2F;嗅探&#x2F;弱口令</td>
+</tr>
+<tr>
+<td align="center">25</td>
+<td align="center">SMTP邮件服务</td>
+<td align="center">邮件伪造</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="center">DNS域名解析系统</td>
+<td align="center">域传送&#x2F;劫持&#x2F;缓存投毒&#x2F;欺骗</td>
+</tr>
+<tr>
+<td align="center">67&#x2F;68</td>
+<td align="center">dhcp服务</td>
+<td align="center">劫持&#x2F;欺骗</td>
+</tr>
+<tr>
+<td align="center">110</td>
+<td align="center">pop3</td>
+<td align="center">爆破&#x2F;嗅探</td>
+</tr>
+<tr>
+<td align="center">139</td>
+<td align="center">Samba服务</td>
+<td align="center">爆破&#x2F;未授权访问&#x2F;远程命令执行</td>
+</tr>
+<tr>
+<td align="center">143</td>
+<td align="center">Imap协议</td>
+<td align="center">爆破</td>
+</tr>
+<tr>
+<td align="center">161</td>
+<td align="center">SNMP协议</td>
+<td align="center">爆破&#x2F;搜集目标内网信息</td>
+</tr>
+<tr>
+<td align="center">389</td>
+<td align="center">Ldap目录访问协议</td>
+<td align="center">注入&#x2F;未授权访问&#x2F;弱口令</td>
+</tr>
+<tr>
+<td align="center">445</td>
+<td align="center">smb</td>
+<td align="center">ms17-010&#x2F;端口溢出</td>
+</tr>
+<tr>
+<td align="center">512&#x2F;513&#x2F;514</td>
+<td align="center">Linux Rexec服务</td>
+<td align="center">爆破&#x2F;Rlogin登陆</td>
+</tr>
+<tr>
+<td align="center">873</td>
+<td align="center">Rsync服务</td>
+<td align="center">文件上传&#x2F;未授权访问</td>
+</tr>
+<tr>
+<td align="center">1080</td>
+<td align="center">socket</td>
+<td align="center">爆破</td>
+</tr>
+<tr>
+<td align="center">1352</td>
+<td align="center">Lotus domino邮件服务</td>
+<td align="center">爆破&#x2F;信息泄漏</td>
+</tr>
+<tr>
+<td align="center">1433</td>
+<td align="center">mssql</td>
+<td align="center">爆破&#x2F;注入&#x2F;SA弱口令</td>
+</tr>
+<tr>
+<td align="center">1521</td>
+<td align="center">oracle</td>
+<td align="center">爆破&#x2F;注入&#x2F;TNS爆破&#x2F;反弹shell</td>
+</tr>
+<tr>
+<td align="center">2049</td>
+<td align="center">Nfs服务</td>
+<td align="center">配置不当</td>
+</tr>
+<tr>
+<td align="center">2181</td>
+<td align="center">zookeeper服务</td>
+<td align="center">未授权访问</td>
+</tr>
+<tr>
+<td align="center">2375</td>
+<td align="center">docker remote api</td>
+<td align="center">未授权访问</td>
+</tr>
+<tr>
+<td align="center">3306</td>
+<td align="center">mysql</td>
+<td align="center">爆破&#x2F;注入</td>
+</tr>
+<tr>
+<td align="center">3389</td>
+<td align="center">Rdp远程桌面链接</td>
+<td align="center">爆破&#x2F;shift后门</td>
+</tr>
+<tr>
+<td align="center">4848</td>
+<td align="center">GlassFish控制台</td>
+<td align="center">爆破&#x2F;认证绕过</td>
+</tr>
+<tr>
+<td align="center">5000</td>
+<td align="center">sybase&#x2F;DB2数据库</td>
+<td align="center">爆破&#x2F;注入&#x2F;提权</td>
+</tr>
+<tr>
+<td align="center">5432</td>
+<td align="center">postgresql</td>
+<td align="center">爆破&#x2F;注入&#x2F;缓冲区溢出</td>
+</tr>
+<tr>
+<td align="center">5632</td>
+<td align="center">pcanywhere服务</td>
+<td align="center">抓密码&#x2F;代码执行</td>
+</tr>
+<tr>
+<td align="center">5900</td>
+<td align="center">vnc</td>
+<td align="center">爆破&#x2F;认证绕过</td>
+</tr>
+<tr>
+<td align="center">6379</td>
+<td align="center">Redis数据库</td>
+<td align="center">未授权访问&#x2F;爆破</td>
+</tr>
+<tr>
+<td align="center">7001&#x2F;7002</td>
+<td align="center">weblogic</td>
+<td align="center">java反序列化&#x2F;控制台弱口令</td>
+</tr>
+<tr>
+<td align="center">80&#x2F;443</td>
+<td align="center">http&#x2F;https</td>
+<td align="center">web应用漏洞&#x2F;心脏滴血</td>
+</tr>
+<tr>
+<td align="center">8069</td>
+<td align="center">zabbix服务</td>
+<td align="center">远程命令执行&#x2F;注入</td>
+</tr>
+<tr>
+<td align="center">8161</td>
+<td align="center">activemq</td>
+<td align="center">弱口令&#x2F;写文件</td>
+</tr>
+<tr>
+<td align="center">8080&#x2F;8089</td>
+<td align="center">Jboss&#x2F;Tomcat&#x2F;Resin</td>
+<td align="center">爆破&#x2F;PUT文件上传&#x2F;反序列化</td>
+</tr>
+<tr>
+<td align="center">8083&#x2F;8086</td>
+<td align="center">influxDB</td>
+<td align="center">未授权访问</td>
+</tr>
+<tr>
+<td align="center">9000</td>
+<td align="center">fastcgi</td>
+<td align="center">远程命令执行</td>
+</tr>
+<tr>
+<td align="center">9090</td>
+<td align="center">Websphere控制台</td>
+<td align="center">爆破&#x2F;java反序列化&#x2F;弱口令</td>
+</tr>
+<tr>
+<td align="center">9200&#x2F;9300</td>
+<td align="center">elasticsearch</td>
+<td align="center">远程代码执行</td>
+</tr>
+<tr>
+<td align="center">11211</td>
+<td align="center">memcached</td>
+<td align="center">未授权访问</td>
+</tr>
+<tr>
+<td align="center">27017&#x2F;27018</td>
+<td align="center">mongodb</td>
+<td align="center">未授权访问&#x2F;爆破</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/8833316.html">参考资料</a></p>
+</blockquote>
+<br/>
+
+
+
+<h2 id="靶场准备"><a href="#靶场准备" class="headerlink" title="靶场准备"></a>靶场准备</h2><ul>
+<li>IP：192.168.66.3</li>
+<li>开放端口：21，22，3306</li>
+</ul>
+<br/>
+
+<h2 id="字典准备"><a href="#字典准备" class="headerlink" title="字典准备"></a>字典准备</h2><ul>
+<li>kali：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38319566/article/details/107737119">crunch</a>  </li>
+<li>Windows：<a target="_blank" rel="noopener" href="https://github.com/z3r023/BaiLu-SED-Tool">白鹿社工字典生成器</a>，在线字典生成网站等</li>
+</ul>
+<br/>
+
+<h2 id="hydra爆破"><a href="#hydra爆破" class="headerlink" title="hydra爆破"></a>hydra爆破</h2><p>hydra是Kali系统中的一个可视化工具,它可以利用众多协议进行口令、账号、密码的爆破,同样支持FPT、MYSQL、SMTP、TELNET、SSH等众多的协议爆破。</p>
+<p>在终端输入 <code>hydra</code> 即可进行打开</p>
+<br/ class='item-img' data-src='./image-20230816143329845.png'><img src="./image-20230816143329845.png" alt="image-20230816143329845"  />
+
+<br/ class='item-img' data-src='./image-20230816142712120.png'><img src="./image-20230816142712120.png" alt="image-20230816142712120"  />
+
+<br/ class='item-img' data-src='./image-20230816143747112.png'><img src="./image-20230816143747112.png" alt="image-20230816143747112"  />
+
+<br/>
+
+<p>点击START即可开始爆破<br><br/></p class='item-img' data-src='./image-20230816144400802.png'><img src="./image-20230816144400802.png" alt="image-20230816144400802"  />
+
+
+
+<br/>
+
+<h2 id="超级弱口令检查工具"><a href="#超级弱口令检查工具" class="headerlink" title="超级弱口令检查工具"></a>超级弱口令检查工具</h2><p>是Windows平台下的一款工具，界面如下</p>
+<p class='item-img' data-src='/2023/08/16/%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E7%88%86%E7%A0%B4/image-20230816144527500.png'><img src="/2023/08/16/%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E7%88%86%E7%A0%B4/image-20230816144527500.png" alt="image-20230816144527500"></p>
+<br/>
+
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p><strong>爆破ssh时线程要低，建议1-10</strong></p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2023/08/15/Win10%E7%B3%BB%E7%BB%9F%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAMarkdown%E6%96%87%E6%A1%A3/">Win10系统下设置鼠标右键新建Markdown文档 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧</a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://cdn.staticaly.com/gh/nicemist/blogpicgo@master/img/yyang.png" alt="Logo"></a><h1 id="Dr"><a href="/">Yang</a></h1><div id="description"><p>学海无涯，勤奋向前</p></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">常见端口服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">靶场准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">字典准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hydra%E7%88%86%E7%A0%B4"><span class="toc-number">4.</span> <span class="toc-text">hydra爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E7%BA%A7%E5%BC%B1%E5%8F%A3%E4%BB%A4%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">5.</span> <span class="toc-text">超级弱口令检查工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">注意：</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr>主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside><div id="shadow-aside"></div></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
