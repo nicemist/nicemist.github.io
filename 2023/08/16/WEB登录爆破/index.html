@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="zh-cn" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>WEB登录爆破 | Yang</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"code.copy","copyFinish":"code.copyFinish","expand":"code.expand"}}</script><script src="//unpkg.com/mermaid@9.2.2/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><script>if (window.localStorage.getItem('theme-mode') === 'light') document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark') document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+  --light-background: url('/img/bk.jpg');
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><nav><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><div id="shadow-header"></div><article><div id="post-bg"><div id="post-title"><h1>WEB登录爆破</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2023-08-16T15:47:16.000Z" id="date"> 2023-08-16</time></div></span><br><span>最后更新时间: <div class="control"><time datetime="2023-08-18T05:01:02.769Z" id="updated"> 2023-08-18</time></div></span><br><span>文章总字数: <div class="control">876</div></span><br><span>预计阅读时间: <div class="control">3 分钟</div></span></div></div><hr><div id="post-content"><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>本次用到的靶场有：pikachu、webug、dvwa</p>
+<p>Burp版本：2023.7.1</p>
+<br>
+
+<h2 id="基于表单的暴力破解"><a href="#基于表单的暴力破解" class="headerlink" title="基于表单的暴力破解"></a>基于表单的暴力破解</h2><blockquote>
+<p>环境：pikachu-基于表单的暴力破解</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003529573.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003529573.png" alt="image-20230817003529573"></p>
+<p>进行Burp抓包，并发送到Intruder模块</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003806898.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003806898.png" alt="image-20230817003806898"></p>
+<p>添加爆破变量，设置类型为Cluster bomb</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003925509.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817003925509.png" alt="image-20230817003925509"></p>
+<p>在Payloads配置字典，开始爆破</p>
+<p>得到结果，对长度进行排序，并查看响应头信息</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004143106.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004143106.png" alt="image-20230817004143106"></p>
+<br>
+
+<h2 id="服务端绕过验证码"><a href="#服务端绕过验证码" class="headerlink" title="服务端绕过验证码"></a>服务端绕过验证码</h2><blockquote>
+<p>环境：pikachu-验证码绕过(on server)</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004810977.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004810977.png" alt="image-20230817004810977"></p>
+<p>Burp抓包，发送到Repeater模块</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004943740.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817004943740.png" alt="image-20230817004943740"></p>
+<p>通过尝试修改参数，发现vcode可复用</p>
+<p>发送到Intruder模块进行爆破</p>
+<p>添加爆破变量，设置类型为Cluster bomb</p>
+<p>配置payload，进行爆破</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005217155.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005217155.png" alt="image-20230817005217155"></p>
+<p>得到结果</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005306115.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005306115.png" alt="image-20230817005306115"></p>
+<br>
+
+<h2 id="客户端绕过验证码"><a href="#客户端绕过验证码" class="headerlink" title="客户端绕过验证码"></a>客户端绕过验证码</h2><blockquote>
+<p>环境：验证码绕过(on client)</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005555154.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005555154.png" alt="image-20230817005555154"></p>
+<p>点击验证码，网络信息没有新增，判断是验证码属于客服端</p>
+<p>Burp抓包，发送到Repeter模块，进行参数修改，验证是否属于客户端</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005838510.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817005838510.png" alt="image-20230817005838510"></p>
+<p>发送到Intruder，进行爆破</p>
+<p>步骤略…</p>
+<p>得到结果</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010001088.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010001088.png" alt="image-20230817010001088"></p>
+<br>
+
+<h2 id="token防爆破"><a href="#token防爆破" class="headerlink" title="token防爆破"></a>token防爆破</h2><blockquote>
+<p>环境：pikachu-token防爆破</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010200969.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010200969.png" alt="image-20230817010200969"></p>
+<p>在发送的请求中cookie上带有token信息，这个token是唯一的，每一次请求对应唯一的token</p>
+<p>在查看源代码发现，下一次请求生成的token被隐藏在html中，</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010558525.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010558525.png" alt="image-20230817010558525"></p>
+<p>因此爆破时候需要找到对应的token值，而下一次的token可以在响应包里找到</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184842357.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184842357.png" alt="image-20230817184842357"></p>
+<p>Burp抓包，再次进行对admin账户的爆破</p>
+<p>发送到Intruder模块，设置模式为Pitchfork，添加变量</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010800014.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010800014.png" alt="image-20230817010800014"></p>
+<p>配置payloads，token变量类型为Recursive grep模式</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010924941.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817010924941.png" alt="image-20230817010924941"></p>
+<p>设置线程为1</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011030219.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011030219.png" alt="image-20230817011030219"></p>
+<p>设置Grep-Extract</p>
+<blockquote>
+<p>这个设置可用于将响应中的有用信息提取到攻击结果表中。</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011113420.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011113420.png" alt="image-20230817011113420"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011204637.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011204637.png" alt="image-20230817011204637"></p>
+<p>在Payload settings设置本次token的值</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011256711.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011256711.png" alt="image-20230817011256711"></p>
+<p>开始爆破，结果如下</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011411138.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817011411138.png" alt="image-20230817011411138"></p>
+<br>
+
+<h2 id="自动重定向"><a href="#自动重定向" class="headerlink" title="自动重定向"></a>自动重定向</h2><blockquote>
+<p>环境：webug登录界面</p>
+</blockquote>
+<p>通过爆破得知登录成功后会进行302跳转</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817173255250.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817173255250.png" alt="image-20230817173255250"></p>
+<p>当用户名和密码输入正确的时候，会跳转到另一个页面，通过Bur可以设置自动跳转</p>
+<p>Burp抓包，发送到Intruder</p>
+<p>设置模式和变量</p>
+<p>设置payloads</p>
+<p>设置Redirections，勾选 <code>On-site-only</code> 和 <code>Process cookies in redirections</code></p>
+<blockquote>
+<p>On-site-only只允许这个网站进行跳转</p>
+<p>Process cookies in redirections：处理重定向中的Cookie，在遵循重定向目标时，将重新提交重定向响应中设置的所有<strong>Cookie</strong>。</p>
+</blockquote>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817013259633.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817013259633.png" alt="image-20230817013259633"></p>
+<p>开始爆破，得到结果</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817013355536.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817013355536.png" alt="image-20230817013355536"></p>
+<p>可以利用Burp中的包进行登录</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817183321592.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817183321592.png" alt="image-20230817183321592"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817183340906.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817183340906.png" alt="image-20230817183340906"></p>
+<p>将链接粘贴到浏览器进行访问，可以直接登录</p>
+<p>用这种方法登录的前提：浏览器开启代理，Burp关闭抓包</p>
+<br>
+
+<h2 id="cookie使用"><a href="#cookie使用" class="headerlink" title="cookie使用"></a>cookie使用</h2><blockquote>
+<p>环境：dvwa靶场登录界面</p>
+<p>跟pikachu靶场中的大同小异</p>
+</blockquote>
+<p>每次登录请求中的cookie带有user_token</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184128933.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184128933.png" alt="image-20230817184128933"></p>
+<p>通过查看源码，可以知道每次请求中的token都藏在了form表单中</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184302534.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184302534.png" alt="image-20230817184302534"></p>
+<p>Burp抓包，在Repeater模块，和上面的token防爆破不一样</p>
+<p>pikachu靶场中的，下一次token可以在响应包李找到</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184842357.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817184842357.png" alt="image-20230817184842357"></p>
+<p>dvwa靶场中，需要跳转一次才可以找到token</p>
+<p>点击Follow rdirection跳转</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190512319.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190512319.png" alt="image-20230817190512319"></p>
+<p>找到token</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190529026.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190529026.png" alt="image-20230817190529026"></p>
+<p>重新抓包，发送到Intruder模块，进行配置</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190642241.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190642241.png" alt="image-20230817190642241"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190715495.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190715495.png" alt="image-20230817190715495"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190728538.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190728538.png" alt="image-20230817190728538"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190746285.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190746285.png" alt="image-20230817190746285"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190812874.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190812874.png" alt="image-20230817190812874"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190837344.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190837344.png" alt="image-20230817190837344"></p>
+<p>注意点：要先选择跳转，在添加Grep-Extract，要不然找不到token</p>
+<p>开始爆破，得到结果</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190952603.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817190952603.png" alt="image-20230817190952603"></p>
+<p>找到请求包里的PHPSESSID</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817195236818.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817195236818.png" alt="image-20230817195236818"></p>
+<p>进行替换</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817191340512.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817191340512.png" alt="image-20230817191340512"></p>
+<p>然后访问index.php</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817195208506.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230817195208506.png" alt="image-20230817195208506"></p>
+<br>
+
+<h2 id="phpMyAdmin爆破"><a href="#phpMyAdmin爆破" class="headerlink" title="phpMyAdmin爆破"></a>phpMyAdmin爆破</h2><p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818125325352.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818125325352.png" alt="image-20230818125325352"></p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818125621801.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818125621801.png" alt="image-20230818125621801"></p>
+<p>每次刷新都会生成一个新的phpMyAdmin和token的值</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818124650989.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818124650989.png" alt="image-20230818124650989"></p>
+<p>抓包可以看出请求信息里面包含phpMyAdmin和token的值</p>
+<p>利用专用的工具进行爆破</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818130030746.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818130030746.png" alt="image-20230818130030746"></p>
+<p>爆破成功</p>
+<p class='item-img' data-src='/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818130101001.png'><img src="/2023/08/16/WEB%E7%99%BB%E5%BD%95%E7%88%86%E7%A0%B4/image-20230818130101001.png" alt="image-20230818130101001"></p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2023/08/16/%E6%9C%AC%E6%9C%BA%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%9A%84%E9%9D%B6%E5%9C%BA%E5%9F%9F%E5%90%8D/">本机访问虚拟机中的靶场域名 上一篇 →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧</a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://cdn.staticaly.com/gh/nicemist/blogpicgo@master/img/yyang.png" alt="Logo"></a><h1 id="Dr"><a href="/">Yang</a></h1><div id="description"><p>学海无涯，勤奋向前</p></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E7%9A%84%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">基于表单的暴力破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BB%95%E8%BF%87%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">服务端绕过验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BB%95%E8%BF%87%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">客户端绕过验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#token%E9%98%B2%E7%88%86%E7%A0%B4"><span class="toc-number">5.</span> <span class="toc-text">token防爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">6.</span> <span class="toc-text">自动重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie%E4%BD%BF%E7%94%A8"><span class="toc-number">7.</span> <span class="toc-text">cookie使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpMyAdmin%E7%88%86%E7%A0%B4"><span class="toc-number">8.</span> <span class="toc-text">phpMyAdmin爆破</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr>主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside><div id="shadow-aside"></div></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
